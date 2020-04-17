@@ -1,0 +1,9 @@
+.container {
+  padding: 1rem;
+}
+
+.container strong {
+  font-size: 20px;
+  text-transform: uppercase;
+  line-height: 26px;
+}
