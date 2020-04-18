@@ -49,8 +49,8 @@ const appPages: AppPage[] = [
     mdIcon: paperPlaneSharp,
   },
   {
-    title: "Favorites",
-    url: "/page/Favorites",
+    title: "Cases In India",
+    url: "/cases_india",
     iosIcon: heartOutline,
     mdIcon: heartSharp,
   },
