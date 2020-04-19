@@ -1,0 +1,18 @@
+.padding {
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+table {
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
+td,
+th {
+  text-align: left;
+  padding: 0.8rem !important;
+}
+td a {
+  color: #000;
+  text-decoration: underline;
+}
