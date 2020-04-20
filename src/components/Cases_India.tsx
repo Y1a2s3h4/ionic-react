@@ -14,6 +14,8 @@ import {
   IonText,
   IonChip,
   IonLabel,
+  IonModal,
+  IonButton,
 } from "@ionic/react";
 import "./Cases_India.css";
 interface CasesIndia {
@@ -29,7 +31,9 @@ interface CasesIndia {
 }
 const Cases_India: React.FC = () => {
   const [state, setState] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const [stateZero, setStateZero] = useState([]);
+  const [valueState, setValueState] = useState("");
   useEffect(() => {
     statewise();
   }, []);
@@ -92,48 +96,67 @@ const Cases_India: React.FC = () => {
               </div>
             );
           })}
-          <IonGrid>
-            <table className="table table-borderless">
-              <thead>
-                <tr>
-                  <th scope="col">State</th>
-                  <th scope="col">Confirmed</th>
-                  <th scope="col">Recovered</th>
-                  <th scope="col">Deaths</th>
-                </tr>
-              </thead>
-              <tbody>
-                {state.map((item: CasesIndia) => {
-                  return (
-                    <tr key={uuid()}>
-                      <td>
-                        <a>{item.state}</a>
-                      </td>
-                      <td>
-                        {item.confirmed}{" "}
-                        <span color="danger">
-                          {item.deltaconfirmed !== "0"
-                            ? `[+ ${item.deltaconfirmed}]`
-                            : ""}
-                        </span>
-                      </td>
-                      <td>
-                        {item.recovered}
-                        {item.recovered !== "0" ? `[+ ${item.recovered}]` : ""}
-                      </td>
-                      <td>
-                        {item.deaths}
-                        {item.deltadeaths !== "0"
-                          ? `[+ ${item.deltadeaths}]`
-                          : ""}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </IonGrid>
         </div>
+
+        <IonGrid className="padding-0">
+          <table className="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">State</th>
+                <th className="danger" scope="col">
+                  Confirmed
+                </th>
+                <th className="success" scope="col">
+                  Recovered
+                </th>
+                <th className="medium" scope="col">
+                  Deaths
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {state.map((item: CasesIndia) => {
+                return (
+                  <tr key={uuid()}>
+                    <td>
+                      <a
+                        onClick={(e) => {
+                          setShowModal(true);
+                          setValueState(e.currentTarget.innerHTML);
+                        }}
+                        className="c-pointer"
+                      >
+                        {item.state}
+                      </a>
+                    </td>
+                    <td className="danger">
+                      {item.confirmed}{" "}
+                      {item.deltaconfirmed !== "0"
+                        ? `[↑ ${item.deltaconfirmed}]`
+                        : ""}
+                    </td>
+                    <td className="success">
+                      {item.recovered}
+                      {item.recovered !== "0" ? `[↑ ${item.recovered}]` : ""}
+                    </td>
+                    <td className="medium">
+                      {item.deaths}
+                      {item.deltadeaths !== "0"
+                        ? `[↑ ${item.deltadeaths}]`
+                        : ""}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </IonGrid>
+        <IonModal isOpen={showModal}>
+          <div className="container">
+            <p>{valueState}</p>
+          </div>
+          <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
+        </IonModal>
       </IonContent>
     </IonPage>
   );
