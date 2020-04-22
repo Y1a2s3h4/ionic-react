@@ -29,11 +29,13 @@ interface CasesIndia {
   recovered: string;
   state: string;
 }
+
 const Cases_India: React.FC = () => {
   const [state, setState] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [stateZero, setStateZero] = useState([]);
   const [valueState, setValueState] = useState("");
+  const [districtWise, setDistrictWise] = useState([]);
   useEffect(() => {
     statewise();
   }, []);
@@ -50,6 +52,7 @@ const Cases_India: React.FC = () => {
         setState(data.statewise);
       });
   };
+
   return (
     <IonPage>
       <IonHeader>
@@ -123,6 +126,17 @@ const Cases_India: React.FC = () => {
                         onClick={(e) => {
                           setShowModal(true);
                           setValueState(e.currentTarget.innerHTML);
+                          let val = e.currentTarget.innerHTML;
+                          fetch(
+                            "https://api.covid19india.org/state_district_wise.json"
+                          )
+                            .then((res) => res.json())
+                            .then((data) => {
+                              setDistrictWise(data[val].districtData);
+                            })
+                            .catch((err) => {
+                              console.log(err);
+                            });
                         }}
                         className="c-pointer"
                       >
@@ -131,19 +145,25 @@ const Cases_India: React.FC = () => {
                     </td>
                     <td className="danger">
                       {item.confirmed}{" "}
-                      {item.deltaconfirmed !== "0"
-                        ? `[↑ ${item.deltaconfirmed}]`
-                        : ""}
+                      <p>
+                        {item.deltaconfirmed !== "0"
+                          ? `[↑ ${item.deltaconfirmed}]`
+                          : ""}
+                      </p>
                     </td>
                     <td className="success">
                       {item.recovered}
-                      {item.recovered !== "0" ? `[↑ ${item.recovered}]` : ""}
+                      <p>
+                        {item.recovered !== "0" ? `[↑ ${item.recovered}]` : ""}
+                      </p>
                     </td>
                     <td className="medium">
                       {item.deaths}
-                      {item.deltadeaths !== "0"
-                        ? `[↑ ${item.deltadeaths}]`
-                        : ""}
+                      <p>
+                        {item.deltadeaths !== "0"
+                          ? `[↑ ${item.deltadeaths}]`
+                          : ""}
+                      </p>
                     </td>
                   </tr>
                 );
@@ -154,6 +174,25 @@ const Cases_India: React.FC = () => {
         <IonModal isOpen={showModal}>
           <div className="container">
             <p>{valueState}</p>
+            <IonGrid>
+              <IonRow>
+                <IonCol>District</IonCol>
+                <IonCol>Confirmed</IonCol>
+                <IonCol>Deaths</IonCol>
+              </IonRow>
+              {Object.values(districtWise).map((districts) => {
+                Object.keys(districts).map((item) => {
+                  const { confirmed, deaths } = districts[item];
+                  return (
+                    <IonRow>
+                      <IonCol>{item}</IonCol>
+                      <IonCol>{districts[confirmed]}</IonCol>
+                      <IonCol>{districts[deaths]}</IonCol>
+                    </IonRow>
+                  );
+                });
+              })}
+            </IonGrid>
           </div>
           <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
         </IonModal>

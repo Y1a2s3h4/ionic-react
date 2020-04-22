@@ -9,13 +9,19 @@ table {
 td,
 th {
   text-align: left;
-  padding: 0.8rem !important;
+  padding-top: 0.8rem !important;
+  padding-left: 0.6rem !important;
+  padding-right: 0.8rem !important;
+  padding-bottom: 0.8rem !important;
   border-bottom: 1px solid #ddd;
   font-size: 14px;
 }
 td a {
   color: #000;
   text-decoration: underline;
+}
+td p {
+  margin-top: 0;
 }
 .padding-0 {
   padding: 0;
