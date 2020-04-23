@@ -132,7 +132,10 @@ const Cases_India: React.FC = () => {
                           )
                             .then((res) => res.json())
                             .then((data) => {
-                              setDistrictWise(data[val].districtData);
+                              const arr: any = [];
+                              arr.push(data[val].districtData);
+                              setDistrictWise(arr);
+                              console.log(data[val].districtData);
                             })
                             .catch((err) => {
                               console.log(err);
@@ -172,28 +175,27 @@ const Cases_India: React.FC = () => {
           </table>
         </IonGrid>
         <IonModal isOpen={showModal}>
-          <div className="container">
-            <p>{valueState}</p>
-            <IonGrid>
-              <IonRow>
-                <IonCol>District</IonCol>
-                <IonCol>Confirmed</IonCol>
-                <IonCol>Deaths</IonCol>
-              </IonRow>
-              {Object.values(districtWise).map((districts) => {
-                Object.keys(districts).map((item) => {
-                  const { confirmed, deaths } = districts[item];
-                  return (
+          <IonContent>
+            <div className="container">
+              <p>{valueState}</p>
+              <IonGrid>
+                <IonRow>
+                  <IonCol>District</IonCol>
+                  <IonCol>Confirmed</IonCol>
+                  <IonCol>Deaths</IonCol>
+                </IonRow>
+                {districtWise.map((item: any) =>
+                  Object.keys(item).map((e) => (
                     <IonRow>
-                      <IonCol>{item}</IonCol>
-                      <IonCol>{districts[confirmed]}</IonCol>
-                      <IonCol>{districts[deaths]}</IonCol>
+                      <IonCol>{e}</IonCol>
+                      <IonCol>{item[e].confirmed}</IonCol>
+                      <IonCol>{item[e].deceased}</IonCol>
                     </IonRow>
-                  );
-                });
-              })}
-            </IonGrid>
-          </div>
+                  ))
+                )}
+              </IonGrid>
+            </div>
+          </IonContent>
           <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
         </IonModal>
       </IonContent>
