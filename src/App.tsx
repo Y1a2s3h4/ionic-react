@@ -2,6 +2,7 @@ import Menu from "./components/Menu";
 import Page from "./pages/Page";
 import Search from "./components/Search";
 import CasesIndia from "./components/Cases_India";
+import About from "./components/About";
 import React from "react";
 import { IonApp, IonRouterOutlet, IonSplitPane } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
@@ -36,6 +37,14 @@ const App: React.FC = () => {
             <Route path="/page/:name" component={Page} exact />
             <Route path="/search" component={Search} exact />
             <Route path="/cases_india" component={CasesIndia} exact />
+            <Route path="/about" component={About} exact />
+            <Route
+              path="/about_dev"
+              component={() => {
+                window.location.assign("https://github.com/Y1a2s3h4");
+                return null;
+              }}
+            />
             <Redirect from="/" to="/page/cases" exact />
           </IonRouterOutlet>
         </IonSplitPane>

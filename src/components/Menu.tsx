@@ -23,8 +23,6 @@ import {
   paperPlaneSharp,
   trashOutline,
   trashSharp,
-  warningOutline,
-  warningSharp,
 } from "ionicons/icons";
 import "./Menu.css";
 
@@ -55,22 +53,16 @@ const appPages: AppPage[] = [
     mdIcon: heartSharp,
   },
   {
-    title: "Archived",
-    url: "/page/Archived",
+    title: "About COVID-19",
+    url: "/about",
     iosIcon: archiveOutline,
     mdIcon: archiveSharp,
   },
   {
-    title: "Trash",
-    url: "/page/Trash",
+    title: "About Dev",
+    url: "/about_dev",
     iosIcon: trashOutline,
     mdIcon: trashSharp,
-  },
-  {
-    title: "Spam",
-    url: "/page/Spam",
-    iosIcon: warningOutline,
-    mdIcon: warningSharp,
   },
 ];
 

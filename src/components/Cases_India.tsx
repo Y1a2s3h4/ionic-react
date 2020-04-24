@@ -181,15 +181,15 @@ const Cases_India: React.FC = () => {
               <IonGrid>
                 <IonRow>
                   <IonCol>District</IonCol>
-                  <IonCol>Confirmed</IonCol>
-                  <IonCol>Deaths</IonCol>
+                  <IonCol className="danger">Confirmed</IonCol>
+                  <IonCol className="medium">Deaths</IonCol>
                 </IonRow>
                 {districtWise.map((item: any) =>
                   Object.keys(item).map((e) => (
                     <IonRow>
                       <IonCol>{e}</IonCol>
-                      <IonCol>{item[e].confirmed}</IonCol>
-                      <IonCol>{item[e].deceased}</IonCol>
+                      <IonCol className="danger">{item[e].confirmed}</IonCol>
+                      <IonCol className="medium">{item[e].deceased}</IonCol>
                     </IonRow>
                   ))
                 )}
